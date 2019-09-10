@@ -1,14 +1,10 @@
 ---
-- name: Show project path
-  debug:
-    var: project_path
-
 - name: Copy project to users dirs
   copy:
     src: "{{ project_path }}"
     dest: /home/user{{item}}/
-    owner: 1000
-    group: 1000
+    mode: 0644
+    owner: "user{{ item }}"
   loop: "{{users_numbers}}"
 
 - name: Run WebIDE for users without docker access
