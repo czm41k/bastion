@@ -13,10 +13,12 @@
     image: "{{theia_image}}"
     state: started
     restart_policy: always
+    env:
+        GIT_SSH_COMMAND: "ssh -i {{ mount_path }}/id_rsa_student"
     ports:
       - "80{{item}}:3000"
     volumes:
-      - "/home/user{{item}}:/home/project"
+      - "/home/user{{item}}:{{ mount_path }}"
   loop: "{{users_numbers}}"
   when: docker_in_docker == False
 
@@ -29,7 +31,7 @@
     ports:
       - "80{{item}}:3000"
     volumes:
-      - "/home/user{{item}}/project:/home/project"
+      - "/home/user{{item}}/project:{{ mount_path }}"
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/usr/bin/docker:/usr/bin/docker"
   loop: "{{users_numbers}}"
