@@ -19,6 +19,9 @@
       - "80{{item}}:3000"
     volumes:
       - "/home/user{{item}}:{{ mount_path }}"
+      - "/usr/local/bin:/home/project/bin"
+      - "/usr/local/lib/python3.6/dist-packages:/usr/lib/python3.6/dist-packages"
+      - "/usr/lib/python3/dist-packages:/usr/lib/python3/dist-packages"
   loop: "{{users_numbers}}"
   when: docker_in_docker == False
 
