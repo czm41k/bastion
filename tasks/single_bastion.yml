@@ -3,9 +3,20 @@
   copy:
     src: "{{ project_path }}"
     dest: /home/user{{item}}/
-    mode: 0644
-    owner: "user{{ item }}"
+    owner: 1000
+    group: 1000
   loop: "{{users_numbers}}"
+
+- name: Add users to docker group
+  user:
+    name: "user{{ item }}"
+    groups: docker
+  loop: "{{ users_numbers }}"
+
+- name: Download needed image
+  docker_image:
+    name: "{{theia_image}}"
+    source: pull
 
 - name: Run WebIDE for users without docker access
   docker_container:
@@ -18,10 +29,7 @@
     ports:
       - "80{{item}}:3000"
     volumes:
-      - "/home/user{{item}}:{{ mount_path }}"
-      - "/usr/local/bin:/home/project/bin"
-      - "/usr/local/lib/python3.6/dist-packages:/usr/lib/python3.6/dist-packages"
-      - "/usr/lib/python3/dist-packages:/usr/lib/python3/dist-packages"
+      - "/home/user{{item}}/project:{{ mount_path }}"
   loop: "{{users_numbers}}"
   when: docker_in_docker == False
 
