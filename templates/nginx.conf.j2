@@ -1,0 +1,9 @@
+worker_processes  2;
+error_log  logs/error.log;
+http {
+    keepalive_timeout  65;
+    # include ../sites/*;
+    server {
+        listen       80 default_server;
+    }
+}

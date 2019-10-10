@@ -4,8 +4,39 @@
     name: nginx
     state: present
 
-- name: start & enable
-  systemctl:
+- name: Mkdir for extra nginx configuration files
+  file:
+    state: directory
+    path: /etc/nginx/sites
+
+- name: Put nginx conf
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/nginx.conf
+  notify:
+    - restart nginx
+
+- name: Create a symbolic link
+  file:
+    src: /etc/nginx/sites-available/nginx.conf
+    dest: /etc/nginx/sites-enabled/nginx.conf
+    state: link
+
+- name: put files with correct names with single template
+  template:
+    src: vhost.conf.j2
+    dest: /etc/nginx/sites/user{{item}}.conf
+  loop: "{{users_numbers}}"
+
+# - name: customize tempaltes by sitename
+#   replace:
+#     regexp:
+#     replace:
+#     path:
+#   loop: "{{ users_numbers }}"
+
+- name: start and enable
+  systemd:
     name: nginx
     state: started
     enabled: true
