@@ -11,6 +11,7 @@
     dest: /etc/nginx/nginx.conf
   notify:
     - restart nginx
+  tag: never
 
 # - name: rm default
 #   file:
@@ -40,6 +41,15 @@
 #     replace:
 #     path:
 #   loop: "{{ users_numbers }}"
+
+# - name: Insert/Update HTML surrounded by custom markers after <body> line
+#   blockinfile:
+#     path: /var/www/html/index.html
+#     marker: "<!-- {mark} Section for user-{{item}}-->"
+#     insertafter: "<body>"
+#     block: |8
+#   loop: "{{ users_numbers }}"
+#   notify: restart nginx
 
 - name: start and enable
   systemd:
