@@ -11,7 +11,7 @@
     dest: /etc/nginx/sites-available/webide.conf
   notify:
     - restart nginx
-  tags: never
+  # tags: never
 
 - name: rm default
   file:
