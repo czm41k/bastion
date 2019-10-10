@@ -32,11 +32,11 @@
 
 
 
-# - name: put files with correct names with single template
-#   template:
-#     src: vhost.conf.j2
-#     dest: /etc/nginx/sites-available/user{{item}}.conf
-#   loop: "{{users_numbers}}"
+- name: put files with correct names with single template
+  template:
+    src: vhost.conf.j2
+    dest: /etc/nginx/sites-available/user{{item}}.conf
+  loop: "{{users_numbers}}"
 
 
 
