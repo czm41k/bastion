@@ -4,25 +4,25 @@
     name: [python-minimal, python-setuptools, python-pip]
     state: present
 
-- name: Install packages for ansible
-  pip:
-    name: [docker]
-    state: present
+# - name: Install packages for ansible
+#   pip:
+#     name: [docker]
+#     state: present
 
 
-- name: Allow password authentication
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: "^PasswordAuthentication"
-    line: "PasswordAuthentication yes"
-    state: present
-  notify: restart ssh
+# - name: Allow password authentication
+#   lineinfile:
+#     dest: /etc/ssh/sshd_config
+#     regexp: "^PasswordAuthentication"
+#     line: "PasswordAuthentication yes"
+#     state: present
+#   notify: restart ssh
 
-- include_tasks: single_bastion.yml
-  when: multi_bastion == false
+# - include_tasks: single_bastion.yml
+#   when: multi_bastion == false
 
-- include_tasks: multi_bastion.yml
-  when: multi_bastion == true
+# - include_tasks: multi_bastion.yml
+#   when: multi_bastion == true
 
 - include_tasks: configure_nginx.yml
   when: install_nginx == true
