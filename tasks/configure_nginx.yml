@@ -20,8 +20,8 @@
 
 - name: Create a symbolic link
   file:
-    src: /etc/nginx/sites-available/webide.conf
-    dest: /etc/nginx/sites-enabled/webide.conf
+    src: /etc/nginx/sites-enabled/webide.conf
+    dest: /etc/nginx/sites-available/webide.conf
     state: link
 
 # - name: Mkdir for extra nginx configuration files
