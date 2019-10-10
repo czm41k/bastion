@@ -4,15 +4,11 @@
     name: nginx
     state: present
 
-- name: Mkdir for extra nginx configuration files
-  file:
-    state: directory
-    path: /etc/nginx/sites
 
 - name: Put nginx conf
   template:
     src: nginx.conf.j2
-    dest: /etc/nginx/sites-available/nginx.conf
+    dest: /etc/nginx/nginx.conf
   notify:
     - restart nginx
 
@@ -30,7 +26,7 @@
 - name: put files with correct names with single template
   template:
     src: vhost.conf.j2
-    dest: /etc/nginx/sites/user{{item}}.conf
+    dest: /etc/nginx/sites-available/user{{item}}.conf
   loop: "{{users_numbers}}"
 
 # - name: customize tempaltes by sitename

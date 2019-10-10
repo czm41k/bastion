@@ -1,8 +1,8 @@
 ---
-- name: Install python
-  package:
-    name: [python-minimal, python-setuptools, python-pip]
-    state: present
+# - name: Install python
+#   package:
+#     name: [python-minimal, python-setuptools, python-pip]
+#     state: present
 
 # - name: Install packages for ansible
 #   pip:
