@@ -11,7 +11,7 @@
     dest: /etc/nginx/nginx.conf
   notify:
     - restart nginx
-  tag: never
+  tags: never
 
 # - name: rm default
 #   file:
