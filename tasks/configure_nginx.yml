@@ -16,6 +16,11 @@
   notify:
     - restart nginx
 
+- name: rm default
+  file:
+    path: /etc/nginx/sites-available/default
+    state: absent
+
 - name: Create a symbolic link
   file:
     src: /etc/nginx/sites-available/nginx.conf
