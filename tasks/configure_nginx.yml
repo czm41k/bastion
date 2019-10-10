@@ -8,21 +8,21 @@
 - name: Put nginx conf
   template:
     src: nginx.conf.j2
-    dest: /etc/nginx/nginx.conf
+    dest: /etc/nginx/sites-available/webide.conf
   notify:
     - restart nginx
   tags: never
 
-# - name: rm default
-#   file:
-#     path: /etc/nginx/sites-available/default
-#     state: absent
+- name: rm default
+  file:
+    path: /etc/nginx/sites-available/default
+    state: absent
 
-# - name: Create a symbolic link
-#   file:
-#     src: /etc/nginx/sites-available/nginx.conf
-#     dest: /etc/nginx/sites-enabled/nginx.conf
-#     state: link
+- name: Create a symbolic link
+  file:
+    src: /etc/nginx/sites-available/webide.conf
+    dest: /etc/nginx/sites-enabled/webide.conf
+    state: link
 
 # - name: Mkdir for extra nginx configuration files
 #   file:
@@ -42,14 +42,24 @@
 #     path:
 #   loop: "{{ users_numbers }}"
 
-# - name: Insert/Update HTML surrounded by custom markers after <body> line
-#   blockinfile:
-#     path: /var/www/html/index.html
-#     marker: "<!-- {mark} Section for user-{{item}}-->"
-#     insertafter: "<body>"
-#     block: |8
-#   loop: "{{ users_numbers }}"
-#   notify: restart nginx
+- name: Insert/Update HTML surrounded by custom markers after <body> line
+  blockinfile:
+    path: /etc/nginx/sites-available/webide.conf
+    marker: "<!-- {mark} Section for user-{{item}}-->"
+    insertbefore: ^.*}\n}
+    block: |8
+                location /user{{item}} {
+                        rewrite /user{{item}}/(.*) /$1  break;
+                        proxy_set_header Host $http_host;
+                        proxy_set_header X-Forwarded-Host $host;
+                        proxy_set_header X-Forwarded-Server $host;
+                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                        proxy_set_header Upgrade $http_upgrade;
+                        proxy_set_header Connection "Upgrade";
+                        proxy_pass       http://0.0.0.0:80{{ item }};
+        }
+  loop: "{{ users_numbers }}"
+  notify: restart nginx
 
 - name: start and enable
   systemd:
