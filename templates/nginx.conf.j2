@@ -39,7 +39,7 @@ server {
         server_name _;
 
         location /user00 {
-                rewrite /foo/(.*) /$1  break;
+                rewrite /user00/(.*) /$1  break;
                 proxy_set_header Host $http_host;
                 proxy_set_header X-Forwarded-Host $host;
                 proxy_set_header X-Forwarded-Server $host;
