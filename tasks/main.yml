@@ -23,3 +23,6 @@
 
 - include_tasks: multi_bastion.yml
   when: multi_bastion == true
+
+- include_tasks: configure_nginx.yml
+  when: install_nginx == true

@@ -1,0 +1,13 @@
+---
+- name: install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: start & enable
+  systemctl:
+    name: nginx
+    state: started
+    enabled: true
+    daemon_reload: true
+...
