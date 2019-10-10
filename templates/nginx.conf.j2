@@ -38,6 +38,10 @@ server {
 
         server_name _;
 
+        location / {
+#               try_files $uri $uri/ =404;
+#       }
+
         location /user00 {
                 rewrite /user00/(.*) /$1  break;
                 proxy_set_header Host $http_host;
