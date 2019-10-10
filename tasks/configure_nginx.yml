@@ -2,7 +2,7 @@
 - name: install nginx
   apt:
     name: nginx
-    state: absent
+    state: present
 
 
 # - name: Put nginx conf
@@ -23,10 +23,10 @@
 #     dest: /etc/nginx/sites-enabled/nginx.conf
 #     state: link
 
-- name: Mkdir for extra nginx configuration files
-  file:
-    state: absent
-    path: /etc/nginx/sites
+# - name: Mkdir for extra nginx configuration files
+#   file:
+#     state: absent
+#     path: /etc/nginx/sites
 
 - name: put files with correct names with single template
   template:
