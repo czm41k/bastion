@@ -1,3 +1,6 @@
+events {
+    worker_connections 20000;
+}
 error_log  logs/error.log;
 http {
     keepalive_timeout  65;
