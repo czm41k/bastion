@@ -17,11 +17,11 @@
     path: /etc/nginx/sites-available/default
     state: absent
 
-- name: Create a symbolic link
-  file:
-    src: /etc/nginx/sites-available/nginx.conf
-    dest: /etc/nginx/sites-enabled/nginx.conf
-    state: link
+# - name: Create a symbolic link
+#   file:
+#     src: /etc/nginx/sites-available/nginx.conf
+#     dest: /etc/nginx/sites-enabled/nginx.conf
+#     state: link
 
 - name: Mkdir for extra nginx configuration files
   file:
