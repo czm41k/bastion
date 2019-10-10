@@ -2,20 +2,20 @@
 - name: install nginx
   apt:
     name: nginx
-    state: present
-
-
-- name: Put nginx conf
-  template:
-    src: nginx.conf.j2
-    dest: /etc/nginx/nginx.conf
-  notify:
-    - restart nginx
-
-- name: rm default
-  file:
-    path: /etc/nginx/sites-available/default
     state: absent
+
+
+# - name: Put nginx conf
+#   template:
+#     src: nginx.conf.j2
+#     dest: /etc/nginx/nginx.conf
+#   notify:
+#     - restart nginx
+
+# - name: rm default
+#   file:
+#     path: /etc/nginx/sites-available/default
+#     state: absent
 
 # - name: Create a symbolic link
 #   file:
@@ -25,7 +25,7 @@
 
 - name: Mkdir for extra nginx configuration files
   file:
-    state: directory
+    state: absent
     path: /etc/nginx/sites
 
 - name: put files with correct names with single template
