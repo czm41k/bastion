@@ -42,7 +42,7 @@
 #     path:
 #   loop: "{{ users_numbers }}"
 
-- name: Insert/Update HTML surrounded by custom markers after <body> line
+- name: Update nginx.conf to inser necessary users as path
   blockinfile:
     path: /etc/nginx/sites-available/webide.conf
     marker: "<!-- {mark} Section for user-{{item}}-->"
@@ -57,7 +57,7 @@
                         proxy_set_header Upgrade $http_upgrade;
                         proxy_set_header Connection "Upgrade";
                         proxy_pass       http://0.0.0.0:80{{ item }};
-        }
+                }
   loop: "{{ users_numbers }}"
   notify: restart nginx
 
