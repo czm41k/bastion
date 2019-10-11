@@ -2,9 +2,19 @@
 - name: Copy project to users dirs and set correct permissions
   copy:
     src: "{{ project_path }}"
-    dest: /home/user{{item}}/
-    owner: user{{item}}
-    group: user{{item}}
+    dest: "/home/user{{item}}/"
+    owner: "user{{item}}"
+    group: "user{{item}}"
+  loop: "{{users_numbers}}"
+  register: output
+
+- name: Setting right permissions for project folder recursively
+  file:
+    path: "/home/user{{item}}/project"
+    state: directory
+    recurse: true
+    owner: "user{{item}}"
+    group: "user{{item}}"
   loop: "{{users_numbers}}"
 
 - name: Add users to docker group
