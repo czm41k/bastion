@@ -1,10 +1,10 @@
 ---
-- name: Copy project to users dirs
+- name: Copy project to users dirs and set correct permissions
   copy:
     src: "{{ project_path }}"
     dest: /home/user{{item}}/
-    owner: 1000
-    group: 1000
+    owner: user{{item}}
+    group: user{{item}}
   loop: "{{users_numbers}}"
 
 - name: Add users to docker group
