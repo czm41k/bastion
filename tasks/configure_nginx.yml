@@ -4,14 +4,12 @@
     name: nginx
     state: present
 
-
 - name: Put nginx conf
   template:
     src: nginx.conf.j2
     dest: /etc/nginx/sites-available/webide.conf
   notify:
     - restart nginx
-  # tags: never
 
 - name: rm default
   file:
@@ -20,35 +18,17 @@
 
 - name: Create a symbolic link
   file:
-    src: /etc/nginx/sites-enabled/webide.conf
-    dest: /etc/nginx/sites-available/webide.conf
+    src: /etc/nginx/sites-available/webide.conf
+    dest: /etc/nginx/sites-enabled/webide.conf
     state: link
-
-# - name: Mkdir for extra nginx configuration files
-#   file:
-#     state: absent
-#     path: /etc/nginx/sites
-
-# - name: put files with correct names with single template
-#   template:
-#     src: vhost.conf.j2
-#     dest: /etc/nginx/sites-available/user{{item}}.conf
-#   loop: "{{users_numbers}}"
-
-# - name: customize tempaltes by sitename
-#   replace:
-#     regexp:
-#     replace:
-#     path:
-#   loop: "{{ users_numbers }}"
 
 - name: Update nginx.conf to inser necessary users as path
   blockinfile:
     path: /etc/nginx/sites-available/webide.conf
-    marker: "<!-- {mark} Section for user-{{item}}-->"
-    insertbefore: ^.*}\n}
-    block: |8
-                location /user{{item}} {
+    marker: "# {mark} Section for user-{{item}}"
+    insertafter: "# CHECKPOINT"
+    block: |
+                location /user{{item}}/ {
                         rewrite /user{{item}}/(.*) /$1  break;
                         proxy_set_header Host $http_host;
                         proxy_set_header X-Forwarded-Host $host;
@@ -56,7 +36,7 @@
                         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                         proxy_set_header Upgrade $http_upgrade;
                         proxy_set_header Connection "Upgrade";
-                        proxy_pass       http://0.0.0.0:80{{ item }};
+                        proxy_pass       http://0.0.0.0:80{{ item }}/;
                 }
   loop: "{{ users_numbers }}"
   notify: restart nginx
