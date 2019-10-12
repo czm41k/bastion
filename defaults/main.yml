@@ -8,3 +8,4 @@ multi_bastion: false
 docker_in_docker: false
 theia_image: "theiaide/theia-full:latest"
 install_nginx: true
+ssl_path: /etc/nginx/keys
