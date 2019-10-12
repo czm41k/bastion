@@ -1,5 +1,8 @@
 server {
-        listen 80 default_server;
+        listen 443 ssl default_server;
+        ssl_certificate {{ ssl_path }}/fullchain1.pem;
+        ssl_certificate_key {{ ssl_path }}/privkey1.pem;
+        ssl_trusted_certificate {{ ssl_path }}/chain1.pem;
         # SSL configuration
         #
         # listen 443 ssl default_server;
