@@ -24,13 +24,13 @@
     owner: 1000
     group: 1000
   loop:
-    - ../../../files/ansible.express42.io/cert1.pem
-    - ../../../files/ansible.express42.io/chain1.pem
-    - ../../../files/ansible.express42.io/fullchain1.pem
+    - "{{ certs_local_path }}/cert1.pem"
+    - "{{ certs_local_path }}/chain1.pem"
+    - "{{ certs_local_path }}/fullchain1.pem"
 
 - name: put privkey in created folder
   copy:
-    src: ../../../files/ansible.express42.io/privkey1.pem
+    src: "{{ certs_local_path }}/privkey1.pem"
     dest: "{{ ssl_path }}/"
     mode: 0600
     owner: 1000
