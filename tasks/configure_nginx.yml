@@ -1,7 +1,9 @@
 ---
 - name: install nginx
   apt:
-    name: nginx
+    name:
+    - nginx
+    - python-passlib
     state: present
 
 - name: Put nginx conf
@@ -10,6 +12,14 @@
     dest: /etc/nginx/sites-available/webide.conf
   notify:
     - restart nginx
+
+- name: create passwd 
+  htpasswd:
+    path:     /etc/nginx/passwdfile
+    name:     "{{ login_to_auth }}"
+    password: "{{ passwd_to_auth }}"
+    mode:     0644
+  notify:     restart nginx
 
 - name: Create cert folder
   file:

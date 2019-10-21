@@ -10,3 +10,5 @@ theia_image: "theiaide/theia-full:latest"
 install_nginx: true
 ssl_path: /etc/nginx/keys
 certs_local_path: ../../../files/ansible.express42.io
+login_to_auth:  mc-ansible
+passwd_to_auth: VHH^rUp2M&jt9aIG
