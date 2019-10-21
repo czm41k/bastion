@@ -9,15 +9,6 @@
     name: [docker]
     state: present
 
-
-- name: Allow password authentication
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: "^PasswordAuthentication"
-    line: "PasswordAuthentication yes"
-    state: present
-  notify: restart ssh
-
 - include_tasks: single_bastion.yml
   when: multi_bastion == false
 
