@@ -3,8 +3,15 @@
   apt:
     name: 
       - npm
+      - pip
     state:  latest
     update_cache: yes
+
+- name: install docker-compose
+  pip:
+    name: 
+      - docker-compose
+    state: latest
 
 - name: set default Python to v.2 (needed for fresh Ubuntu 18.04 and docker_compose ansible module)
   set_fact:
