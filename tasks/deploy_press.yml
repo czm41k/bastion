@@ -19,7 +19,7 @@
   template:
     src:    templates/docker-compose.yml
     dest:   "{{ path_to_rep_server }}"
-        mode:   0644
+    mode:   0644
 
 - name: docker-compose up
   docker_compose:
