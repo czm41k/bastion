@@ -1,27 +1,27 @@
 ---
-    - name: install utilities
-      apt:
-        name: 
-          - npm
-        state:  latest
-        update_cache: yes
+- name: install utilities
+  apt:
+    name: 
+      - npm
+    state:  latest
+    update_cache: yes
 
-    - name: set default Python to v.2 (needed for fresh Ubuntu 18.04 and docker_compose ansible module)
-      set_fact:
-        ansible_python_interpreter: "/usr/bin/python"
+- name: set default Python to v.2 (needed for fresh Ubuntu 18.04 and docker_compose ansible module)
+  set_fact:
+    ansible_python_interpreter: "/usr/bin/python"
 
-    - name: synchronization local folder to remote folder
-      synchronize:
-        src:    "{{ path_to_rep_local }}"
-        dest:   "{{ path_to_rep_server }}"
+- name: synchronization local folder to remote folder
+  synchronize:
+    src:    "{{ path_to_rep_local }}"
+    dest:   "{{ path_to_rep_server }}"
 
-    - name: configure docker-compose.yml
-      template:
-        src:    templates/docker-compose.yml
-        dest:   "{{ path_to_rep_server }}"
+- name: configure docker-compose.yml
+  template:
+    src:    templates/docker-compose.yml
+    dest:   "{{ path_to_rep_server }}"
         mode:   0644
 
-    - name: docker-compose up
-      docker_compose:
-          project_src: "{{ path_to_rep_server }}"
-          state: present    
+- name: docker-compose up
+  docker_compose:
+      project_src: "{{ path_to_rep_server }}"
+      state: present    
