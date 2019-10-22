@@ -17,3 +17,6 @@
 
 - include_tasks: configure_nginx.yml
   when: install_nginx == true
+
+- include_tasks: deploy_press.yml
+  when: install_nginx == true
