@@ -10,8 +10,8 @@ theia_image: "theiaide/theia-full:latest"
 install_nginx: true
 ssl_path: /etc/nginx/keys
 certs_local_path: ../../../files/ansible.express42.io
-login_to_auth:  mc-ansible
 passwd_to_auth: VHH^rUp2M&jt9aIG
+login_to_auth:  mc-ansible
 path_to_rep_local: /home/aleb/e42-courses/
 path_to_rep_server: /home/{{ ansible_user}}/e42-courses/
 path_to_slides:         Workshops/
