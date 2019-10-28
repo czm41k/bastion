@@ -14,4 +14,4 @@ passwd_to_auth: VHH^rUp2M&jt9aIG
 login_to_auth:  mc-ansible
 path_to_rep_local: /home/aleb/e42-courses/
 path_to_rep_server: /home/{{ ansible_user}}/e42-courses/
-path_to_slides:         Workshops/
+path_to_slides:         Workshops/Ansible
