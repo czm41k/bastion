@@ -1,6 +1,6 @@
 ---
 # defaults file for bastion
-users_count: 20
+users_count: 5
 users_numbers: "{{ query('sequence', 'start=0 end={{users_count}} format=%02d') }}"
 project_path: "../project"
 mount_path: "/home/project"
