@@ -12,6 +12,7 @@ ssl_path: /etc/nginx/keys
 certs_local_path: ../../../files/ansible.express42.io
 passwd_to_auth: VHH^rUp2M&jt9aIG
 login_to_auth:  mc-ansible
-path_to_rep_local: /home/aleb/works_e42/e42-courses/
-path_to_rep_server: /home/{{ ansible_user}}/e42-courses/
-path_to_slides:         Workshops/Ansible
+aws_s3_bucket: http://express42-mc-ansible1.s3-website.eu-central-1.amazonaws.com//
+# path_to_rep_local: /home/aleb/works_e42/e42-courses/
+# path_to_rep_server: /home/{{ ansible_user}}/e42-courses/
+# path_to_slides:         Workshops/Ansible
