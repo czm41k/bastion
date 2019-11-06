@@ -1,10 +1,16 @@
 ---
-- name: Copy project to users dirs and set correct permissions
+- name: Copy project to tmp
   copy:
     src: "{{ project_path }}"
+    dest: /tmp/
+
+- name: Copy project to users dirs and set correct permissions
+  copy:
+    src: /tmp/project
     dest: "/home/user{{item}}/"
     owner: "user{{item}}"
     group: "user{{item}}"
+    remote_src: yes
   loop: "{{users_numbers}}"
   register: output
 
