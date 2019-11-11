@@ -9,6 +9,12 @@
     name: [docker]
     state: present
 
+- name: Uninstall unattended-upgrades
+  apt:
+    name: unattended-upgrades
+    state: absent
+    purge: yes
+
 - include_tasks: single_bastion.yml
   when: multi_bastion == false
 
