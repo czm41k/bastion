@@ -46,9 +46,14 @@
     owner: 1000
     group: 1000
 
-- name: rm default
+- name: rm default conf
   file:
     path: /etc/nginx/sites-available/default
+    state: absent
+
+- name: rm default conf
+  file:
+    path: /etc/nginx/sites-enabled/default
     state: absent
 
 - name: Create a symbolic link
