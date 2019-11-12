@@ -3,7 +3,7 @@
   apt:
     name:
     - nginx
-    - python-passlib
+    - python3-passlib
     state: present
 
 - name: Put nginx conf
