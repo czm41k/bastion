@@ -44,6 +44,7 @@
         GIT_SSH_COMMAND: "ssh -i {{ mount_path }}/id_rsa_student"
     ports:
       - "80{{item}}:3000"
+      - "90{{item}}:8080"
     volumes:
       - "/home/user{{item}}/project:{{ mount_path }}"
   loop: "{{users_numbers}}"
@@ -57,6 +58,7 @@
     restart_policy: always
     ports:
       - "80{{item}}:3000"
+      - "90{{item}}:8080"
     volumes:
       - "/home/user{{item}}/project:{{ mount_path }}"
       - "/var/run/docker.sock:/var/run/docker.sock"
