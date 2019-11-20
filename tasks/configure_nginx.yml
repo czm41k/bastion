@@ -93,7 +93,7 @@
     marker_end: end2
     insertafter: "# CHECKPOINT1"
     block: |
-                location /user{{item}}/service {
+                location /user{{item}}/service/ {
                         proxy_set_header Host $http_host;
                         proxy_set_header X-Forwarded-Host $host;
                         proxy_set_header X-Forwarded-Server $host;
@@ -114,7 +114,7 @@
     marker_end: end3
     insertafter: "# CHECKPOINT2"
     block: |
-                location /user{{item}}/reddit {
+                location /user{{item}}/reddit/ {
                         proxy_set_header Host $http_host;
                         proxy_set_header X-Forwarded-Host $host;
                         proxy_set_header X-Forwarded-Server $host;
