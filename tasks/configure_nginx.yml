@@ -85,7 +85,7 @@
   blockinfile:
     path: /etc/nginx/sites-available/webide.conf
     marker: "# {mark} Section for user-{{item}}"
-    insertafter: "# CHECKPOINT"
+    insertafter: "# CHECKPOINT1"
     block: |
                 location /user{{item}}/service {
                         proxy_set_header Host $http_host;
@@ -103,7 +103,7 @@
   blockinfile:
     path: /etc/nginx/sites-available/webide.conf
     marker: "# {mark} Section for user-{{item}}"
-    insertafter: "# CHECKPOINT"
+    insertafter: "# CHECKPOINT2"
     block: |
                 location /user{{item}}/reddit {
                         proxy_set_header Host $http_host;
