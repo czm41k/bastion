@@ -81,6 +81,42 @@
   loop: "{{ users_numbers }}"
   notify: restart nginx
 
+- name: Update nginx.conf to insert necessary 90xx ports(service)
+  blockinfile:
+    path: /etc/nginx/sites-available/webide.conf
+    marker: "# {mark} Section for user-{{item}}"
+    insertafter: "# CHECKPOINT"
+    block: |
+                location /user{{item}}/service {
+                        proxy_set_header Host $http_host;
+                        proxy_set_header X-Forwarded-Host $host;
+                        proxy_set_header X-Forwarded-Server $host;
+                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                        proxy_set_header Upgrade $http_upgrade;
+                        proxy_set_header Connection "Upgrade";
+                        proxy_pass       http://0.0.0.0:90{{ item }}/;
+                }
+  loop: "{{ users_numbers }}"
+  notify: restart nginx
+
+- name: Update nginx.conf to insert necessary 100xx ports(reddit)
+  blockinfile:
+    path: /etc/nginx/sites-available/webide.conf
+    marker: "# {mark} Section for user-{{item}}"
+    insertafter: "# CHECKPOINT"
+    block: |
+                location /user{{item}}/reddit {
+                        proxy_set_header Host $http_host;
+                        proxy_set_header X-Forwarded-Host $host;
+                        proxy_set_header X-Forwarded-Server $host;
+                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                        proxy_set_header Upgrade $http_upgrade;
+                        proxy_set_header Connection "Upgrade";
+                        proxy_pass       http://0.0.0.0:100{{ item }}/;
+                }
+  loop: "{{ users_numbers }}"
+  notify: restart nginx  
+
 - name: start and enable
   systemd:
     name: nginx
