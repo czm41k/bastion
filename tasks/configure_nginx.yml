@@ -73,12 +73,6 @@
     block: |
                 location /user{{item}}/ {
                         rewrite /user{{item}}/(.*) /$1  break;
-                        proxy_set_header Host $http_host;
-                        proxy_set_header X-Forwarded-Host $host;
-                        proxy_set_header X-Forwarded-Server $host;
-                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                        proxy_set_header Upgrade $http_upgrade;
-                        proxy_set_header Connection "Upgrade";
                         proxy_pass       http://0.0.0.0:80{{ item }}/;
                 }
   loop: "{{ users_numbers }}"
@@ -94,12 +88,10 @@
     insertafter: "# CHECKPOINT1"
     block: |
                 location /user{{item}}/service/ {
-                        proxy_set_header Host $http_host;
-                        proxy_set_header X-Forwarded-Host $host;
-                        proxy_set_header X-Forwarded-Server $host;
-                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                        proxy_set_header Upgrade $http_upgrade;
-                        proxy_set_header Connection "Upgrade";
+                        sub_filter_once off;
+                        sub_filter_types text/css text/javascript application/javascript;
+                        sub_filter 'href="/' 'href="/user{{item}}/service/';
+                        rewrite /user{{item}}/service/(.*) /$1  break;
                         proxy_pass       http://0.0.0.0:90{{ item }}/;
                 }
   loop: "{{ users_numbers }}"
@@ -115,12 +107,12 @@
     insertafter: "# CHECKPOINT2"
     block: |
                 location /user{{item}}/reddit/ {
-                        proxy_set_header Host $http_host;
-                        proxy_set_header X-Forwarded-Host $host;
-                        proxy_set_header X-Forwarded-Server $host;
-                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                        proxy_set_header Upgrade $http_upgrade;
-                        proxy_set_header Connection "Upgrade";
+                        sub_filter_once off;
+                        sub_filter_types text/css text/javascript application/javascript;
+                        sub_filter 'action="/' 'action="/user{{item}}/reddit/';
+                        sub_filter 'href="/' 'href="/user{{item}}/reddit/';
+                        rewrite /user{{item}}/reddit/(.*) /$1 break;
+                        proxy_set_header Accept-Encoding "";
                         proxy_pass       http://0.0.0.0:100{{ item }}/;
                 }
   loop: "{{ users_numbers }}"
