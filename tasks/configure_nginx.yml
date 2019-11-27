@@ -109,7 +109,7 @@
                 location /user{{item}}/reddit/ {
                         sub_filter_once off;
                         sub_filter_types text/css text/javascript application/javascript;
-                        sub_filter "action='/" "action='/user{{item}}/reddit/;
+                        sub_filter "action='/" "action='/user{{item}}/reddit/";
                         sub_filter "href='/" "href='/user{{item}}/reddit/";
                         rewrite /user{{item}}/reddit/(.*) /$1 break;
                         proxy_set_header Accept-Encoding "";
